@@ -151,8 +151,8 @@ public class Camera extends JavaPlugin {
 		ItemStack camera = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta cameraMeta = (SkullMeta) camera.getItemMeta();
 
-		PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "Camera");
-		profile.setProperty(new ProfileProperty("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0=="));
+		PlayerProfile profile = Bukkit.createProfile(UUID.fromString("5760344a-e1b7-4b1c-90bd-3fa55e248ef3"), "Camera");
+		profile.setProperty(new ProfileProperty("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0="));
 		cameraMeta.displayName(Component.text("Camera").color(NamedTextColor.BLUE));
 		cameraMeta.setPlayerProfile(profile);
 		cameraMeta.getPersistentDataContainer().set(cameraKey, PersistentDataType.INTEGER, 1);
@@ -170,6 +170,7 @@ public class Camera extends JavaPlugin {
 		}
 
 		Bukkit.addRecipe(recipe);
+		Bukkit.getOnlinePlayers().forEach((Player player) -> player.discoverRecipe(recipeKey));
 	}
 
 	private void loadConfig() {
