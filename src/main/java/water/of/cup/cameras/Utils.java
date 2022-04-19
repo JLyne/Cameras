@@ -8,7 +8,9 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.map.MapPalette;
+import org.bukkit.persistence.PersistentDataType;
 
 public class Utils {
 	static Map<Material, Color> blocksMap = new HashMap<Material, Color>();
@@ -220,5 +222,10 @@ public class Utils {
 			}
 		}
 		return MapPalette.GRAY_2; // no color was found, use gray
+	}
+
+	public static boolean isCamera(ItemStack item) {
+		return item != null && item.hasItemMeta() && item.getItemMeta().getPersistentDataContainer()
+				.has(Camera.getInstance().getCameraKey(), PersistentDataType.INTEGER);
 	}
 }

@@ -24,6 +24,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.map.MapCanvas;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import water.of.cup.cameras.commands.CameraCommands;
@@ -33,6 +34,8 @@ import water.of.cup.cameras.listeners.PlayerJoin;
 import water.of.cup.cameras.listeners.PrepareItemCraft;
 
 public class Camera extends JavaPlugin {
+
+	private NamespacedKey cameraKey;
 
 	private static Camera instance;
 	List<Integer> mapIDsNotToRender = new ArrayList<>();
@@ -46,6 +49,7 @@ public class Camera extends JavaPlugin {
 
 		loadConfig();
 
+		cameraKey = new NamespacedKey(this, "camera"); //Key which identifies a token loot placeholder
 		this.resourcePackManager.initialize();
 
 		// Resource pack manager test
@@ -246,5 +250,9 @@ public class Camera extends JavaPlugin {
 	@Override
 	public FileConfiguration getConfig() {
 		return config;
+	}
+
+	public NamespacedKey getCameraKey() {
+		return cameraKey;
 	}
 }

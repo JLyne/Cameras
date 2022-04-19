@@ -2,7 +2,6 @@ package water.of.cup.cameras.listeners;
 
 import java.util.Map;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import water.of.cup.cameras.Camera;
 import water.of.cup.cameras.Picture;
+import water.of.cup.cameras.Utils;
 
 public class CameraClick implements Listener {
 
@@ -29,7 +29,7 @@ public class CameraClick implements Listener {
 			return;
 
 		if ((e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-				&& e.getItem().getItemMeta().getDisplayName().equals(ChatColor.DARK_BLUE + "Camera")) {
+				&& Utils.isCamera(e.getItem())) {
 
 			boolean usePerms = instance.getConfig().getBoolean("settings.camera.permissions");
 			if(usePerms && !p.hasPermission("cameras.useitem")) return;
