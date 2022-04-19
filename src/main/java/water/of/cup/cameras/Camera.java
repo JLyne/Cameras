@@ -36,6 +36,7 @@ import water.of.cup.cameras.listeners.PrepareItemCraft;
 public class Camera extends JavaPlugin {
 
 	private NamespacedKey cameraKey;
+	private NamespacedKey recipeKey;
 
 	private static Camera instance;
 	List<Integer> mapIDsNotToRender = new ArrayList<>();
@@ -49,6 +50,7 @@ public class Camera extends JavaPlugin {
 
 		loadConfig();
 
+		recipeKey = new NamespacedKey(this, "camera");
 		cameraKey = new NamespacedKey(this, "camera"); //Key which identifies a token loot placeholder
 		this.resourcePackManager.initialize();
 
@@ -134,6 +136,7 @@ public class Camera extends JavaPlugin {
 	public void onDisable() {
 		/* Disable all current async tasks */
 		Bukkit.getScheduler().cancelTasks(this);
+		Bukkit.removeRecipe(recipeKey);
 	}
 
 	private void registerListeners(Listener... listeners) {
@@ -156,8 +159,8 @@ public class Camera extends JavaPlugin {
 
 		camera.setItemMeta(cameraMeta);
 
-		NamespacedKey key = new NamespacedKey(this, "camera");
-		ShapedRecipe recipe = new ShapedRecipe(key, camera);
+
+		ShapedRecipe recipe = new ShapedRecipe(recipeKey, camera);
 
 		ArrayList<String> shapeArr = (ArrayList<String>) config.get("settings.camera.recipe.shape");
 		recipe.shape(shapeArr.toArray(new String[shapeArr.size()]));
