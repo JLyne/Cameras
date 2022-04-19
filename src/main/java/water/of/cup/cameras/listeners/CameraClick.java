@@ -37,7 +37,7 @@ public class CameraClick implements Listener {
 			boolean messages = instance.getConfig().getBoolean("settings.messages.enabled");
 			if (p.getInventory().firstEmpty() == -1) { //check to make sure there is room in the inventory for the map
 				if(messages) {
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.invfull")));
+					p.sendMessage(Utils.legacySerializer.deserialize(instance.getConfig().getString("settings.messages.invfull")));
 				}
 				return;
 			}
@@ -54,7 +54,7 @@ public class CameraClick implements Listener {
 				}
 			} else {
 				if(messages) {
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.nopaper")));
+					p.sendMessage(Utils.legacySerializer.deserialize(instance.getConfig().getString("settings.messages.nopaper")));
 				}
 			}
 			

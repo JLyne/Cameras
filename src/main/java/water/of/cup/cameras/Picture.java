@@ -2,7 +2,6 @@ package water.of.cup.cameras;
 
 import java.util.HashMap;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,7 +25,7 @@ public class Picture {
                         delayMap.put(p, System.currentTimeMillis());
                     } else {
                         if(messages) {
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.delay")));
+                            p.sendMessage(Utils.legacySerializer.deserialize(instance.getConfig().getString("settings.messages.delay")));
                         }
                         return false;
                     }
@@ -34,7 +33,7 @@ public class Picture {
             }
         } else {
             if(messages) {
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.notready")));
+                p.sendMessage(Utils.legacySerializer.deserialize(instance.getConfig().getString("settings.messages.notready")));
             }
             return false;
         }

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,7 +14,8 @@ import org.bukkit.map.MapPalette;
 import org.bukkit.persistence.PersistentDataType;
 
 public class Utils {
-	static Map<Material, Color> blocksMap = new HashMap<Material, Color>();
+	static Map<Material, Color> blocksMap = new HashMap<>();
+	public static LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.legacyAmpersand();
 
 	public static void loadColors() {
 		// Materials we don't want to use minecraft images for (could be because the
