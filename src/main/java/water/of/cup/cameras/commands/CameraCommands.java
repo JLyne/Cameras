@@ -5,15 +5,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import org.jetbrains.annotations.NotNull;
 import water.of.cup.cameras.Camera;
 import water.of.cup.cameras.Picture;
 
 public class CameraCommands implements CommandExecutor {
 
-    private Camera instance = Camera.getInstance();
+    private final Camera instance = Camera.getInstance();
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
             return true;
         }

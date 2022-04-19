@@ -11,7 +11,7 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 
 public class Picture {
-    private static HashMap<Player, Long> delayMap = new HashMap<>();
+    private static final HashMap<Player, Long> delayMap = new HashMap<>();
 
 	public static boolean takePicture(Player p) {
         Camera instance = Camera.getInstance();

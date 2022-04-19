@@ -8,7 +8,7 @@ import water.of.cup.cameras.Camera;
 
 public class PlayerJoin implements Listener {
 
-    private Camera instance = Camera.getInstance();
+    private final Camera instance = Camera.getInstance();
 
     /* Add recipe to new players */
     @EventHandler

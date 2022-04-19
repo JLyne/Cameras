@@ -4,15 +4,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -24,10 +26,6 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-
-import water.of.cup.cameras.bstats.Metrics;
 import water.of.cup.cameras.commands.CameraCommands;
 import water.of.cup.cameras.listeners.CameraClick;
 import water.of.cup.cameras.listeners.CameraPlace;
@@ -126,12 +124,6 @@ public class Camera extends JavaPlugin {
 
 		if(config.getBoolean("settings.camera.recipe.enabled"))
 			addCameraRecipe();
-
-		// Add bStats
-		Metrics metrics = new Metrics(this, 9671);
-		Bukkit.getLogger().info("[Cameras] bStats: " + metrics.isEnabled() + " plugin ver: " + getDescription().getVersion());
-
-		metrics.addCustomChart(new Metrics.SimplePie("plugin_version", () -> getDescription().getVersion()));
 	}
 
 	@Override
@@ -151,18 +143,13 @@ public class Camera extends JavaPlugin {
 	public void addCameraRecipe() {
 		ItemStack camera = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta cameraMeta = (SkullMeta) camera.getItemMeta();
-		GameProfile profile = new GameProfile(UUID.randomUUID(), "");
-		profile.getProperties().put("textures", new Property("textures",
-				"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0=="));
-		Field profileField = null;
-		cameraMeta.setDisplayName(ChatColor.DARK_BLUE + "Camera");
-		try {
-			profileField = cameraMeta.getClass().getDeclaredField("profile");
-			profileField.setAccessible(true);
-			profileField.set(cameraMeta, profile);
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-			e.printStackTrace();
-		}
+
+		PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "Camera");
+		profile.setProperty(new ProfileProperty("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0=="));
+		cameraMeta.displayName(Component.text("Camera").color(NamedTextColor.BLUE));
+		cameraMeta.setPlayerProfile(profile);
+		cameraMeta.getPersistentDataContainer().set(cameraKey, PersistentDataType.INTEGER, 1);
+
 		camera.setItemMeta(cameraMeta);
 
 		NamespacedKey key = new NamespacedKey(this, "camera");

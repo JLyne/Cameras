@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class ResourcePackManager {
 
 	private File resourcePackFile;
-	private HashMap<Material, BufferedImage> imageHashMap = new HashMap<>();
+	private final HashMap<Material, BufferedImage> imageHashMap = new HashMap<>();
 	private boolean isLoaded;
 
     public void initialize() {

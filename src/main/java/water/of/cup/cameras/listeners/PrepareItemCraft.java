@@ -14,7 +14,7 @@ import water.of.cup.cameras.Camera;
 
 public class PrepareItemCraft implements Listener {
 
-    private Camera instance = Camera.getInstance();
+    private final Camera instance = Camera.getInstance();
 
     @EventHandler
     public void prepareItemCraft(PrepareItemCraftEvent event) {

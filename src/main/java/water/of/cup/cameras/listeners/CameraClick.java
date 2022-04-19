@@ -16,7 +16,7 @@ import water.of.cup.cameras.Picture;
 
 public class CameraClick implements Listener {
 
-	private Camera instance = Camera.getInstance();
+	private final Camera instance = Camera.getInstance();
 
 	@EventHandler
 	public void cameraClicked(PlayerInteractEvent e) {

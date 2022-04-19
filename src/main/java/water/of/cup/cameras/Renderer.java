@@ -11,12 +11,13 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 public class Renderer extends MapRenderer {
-	private Camera instance = Camera.getInstance();
+	private final Camera instance = Camera.getInstance();
 
 	@Override
-	public void render(MapView map, MapCanvas canvas, Player player) {
+	public void render(MapView map, @NotNull MapCanvas canvas, @NotNull Player player) {
 		if (map.isLocked()) {
 			return;
 		}
